@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 var registerRoutes = require("./routes/registerOAuth.js");
+var loginRoutes = require("./routes/login.js");
 
 console.log(process.env.MONGO_DB_CONN_STRING)
 mongoose.connect(
@@ -27,3 +28,4 @@ app.listen(process.env.PORT, () => {
 });
 
 app.use(registerRoutes);
+app.use(loginRoutes);
