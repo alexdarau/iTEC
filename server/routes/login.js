@@ -5,8 +5,10 @@ const encrypt = require("../helpers/encryptPassword");
 server.use(express.json());
 
 server.post("/auth/login", async (req, res) => {
-  const { username, password } = req.body;
-  const user = await Users.findOne({ username });
+  const { email, password } = req.body;
+  console.log("🚀 ~ file: login.js ~ line 9 ~ server.post ~ username", email)
+  const user = await Users.findOne({ email });
+  console.log("🚀 ~ file: login.js ~ line 11 ~ server.post ~ user", user)
   if (!user) {
     res.status(401).json({
       message: "Login not successful",
