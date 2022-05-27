@@ -24,7 +24,7 @@ server.post('/auth/register',
 
         console.log(user)
 
-        const userReq = await Users.findOne(email);
+        const userReq = await Users.findOne({email});
 
         if (!userReq) {
             await Users.create({

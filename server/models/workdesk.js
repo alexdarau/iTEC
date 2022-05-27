@@ -10,24 +10,6 @@ const WorkDeskSchema = new Schema({
         type: Float32Array
     },
 
-    available: {
-        type: String,
-        enum: ["available", "booked", "permanent"]
-    },
-
-    startBookingTime: {
-        type: Date
-    },
-
-    endBookingTime: {
-        type: Date
-    },
-
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    },
-
     floorId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Floor"
@@ -35,5 +17,4 @@ const WorkDeskSchema = new Schema({
 });
 
 const WorkDesk = mongoose.model('WorkDesk', WorkDeskSchema, 'WorkDesk');
-
 module.exports = WorkDesk;
