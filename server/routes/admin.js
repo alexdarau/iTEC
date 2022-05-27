@@ -1,7 +1,8 @@
 var express = require("express");
 const WorkDesk = require("../models/workdesk");
 const Floor = require("../models/floor")
-const Office = require("../models/office")
+const Office = require("../models/office");
+const id = require("faker/lib/locales/id_ID");
 const server = express();
 
 server.use(express.json());
@@ -11,7 +12,7 @@ server.post("/add/workdesk",
         const { x, y, floorId } = req.body;
 
         const work = {
-            x, 
+            x,
             y,
             floorId
         };
@@ -82,5 +83,47 @@ server.post("/add/office",
         }
     }
 );
+
+server.delete("/office/:id", async (req, res) => {
+    Office.deleteOne({ _id: req.params.id }).then(response => {
+        if (response.deletedCount == 0) {
+            res.status(401).json({
+                message: "Office not deleted",
+            });
+        } else {
+            res.status(200).json({
+                message: "Delete successfully",
+            })
+        }
+    })
+});
+
+server.delete("/workdesk/:id", async (req, res) => {
+    WorkDesk.deleteOne({ _id: req.params.id }).then(response => {
+        if (response.deletedCount == 0) {
+            res.status(401).json({
+                message: "Workdesk not deleted",
+            });
+        } else {
+            res.status(200).json({
+                message: "Delete successfully",
+            })
+        }
+    })
+});
+
+server.delete("/floor/:id", async (req, res) => {
+    Floor.deleteOne({ _id: req.params.id }).then(response => {
+        if (response.deletedCount == 0) {
+            res.status(401).json({
+                message: "Floor not deleted",
+            });
+        } else {
+            res.status(200).json({
+                message: "Delete successfully",
+            })
+        }
+    })
+});
 
 module.exports = server;
