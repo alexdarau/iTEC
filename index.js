@@ -3,8 +3,8 @@ const app = express();
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-var registerRoutes = require("./routes/registerOAuth.js");
-var loginRoutes = require("./routes/login.js");
+var registerRoutes = require("./server/routes/registerOAuth.js");
+var loginRoutes = require("./server/routes/login.js");
 
 console.log(process.env.MONGO_DB_CONN_STRING)
 mongoose.connect(
