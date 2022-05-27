@@ -12,7 +12,7 @@ const FloorSchema = new Schema({
     },
 
     map: {
-        type: Image
+        type: String
     }
 });
 

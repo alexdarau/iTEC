@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const WorkDeskSchema = new Schema({
     x: {
-        type: Float32Array
+        type: Number
     },
 
     y: {
-        type: Float32Array
+        type: Number
     },
 
     floorId: {
