@@ -6,26 +6,27 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
     username: {
-        type: String,
+        type: String
     },
-    firstName: {
-        type: String,
-    },
-    lastName: {
-        type: String,
+    password: {
+        type: String
     },
     email: {
         type: String
     },
-    password: {
-        type: String,
+    firstName: {
+        type: String
     },
-    phone: {
-        type: Number
+    lastName: {
+        type: String
     },
     created_date: {
         type: Date,
         default: Date.now
+    },
+    role: {
+        type: String,
+        enum: ["employee", "admin"]
     }
 });
 
