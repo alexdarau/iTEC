@@ -35,7 +35,7 @@ export class UserService extends ApiBase {
   }
 
   private loginReq (loginUserCredentials: any) {
-    return this.post(this.buildURL('login'), loginUserCredentials);
+    return this.post(this.buildURL('login'), loginUserCredentials, {withCredentials: true});
   }
 
   public login(loginUserCredentials: any) {

@@ -27,7 +27,7 @@ export abstract class ApiBase {
         return this.http.get(url);
     }
 
-    post(url: string, payload: any) {
-        return this.http.post(url, payload);
+    post(url: string, payload: any, options?: object) {
+        return this.http.post(url, payload, options);
     }
 }
