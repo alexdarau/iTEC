@@ -24,13 +24,22 @@ export abstract class ApiBase {
     }
 
     protected buildURL (endpointKey: string) {
-        let uri: string = this.endpoints[endpointKey];
-       return `${this.ROOT_URL}/${uri}`;
+    // let uri: string = this.endpoints[endpointKey];
+       return `${this.ROOT_URL}/${endpointKey}`;
     }
 
     protected buildDeleteURL (endpointKey: string, id: string) {
         let uri: string = this.endpoints[endpointKey];
        return `${this.ROOT_URL}/${uri}/${id}`;
+    }
+
+    protected buildGetURL (endpointKey: string, resourceName: string) {
+        let uri: string = this.endpoints[endpointKey];
+       return `${this.ROOT_URL}/${endpointKey}/?name=${resourceName}`;
+    }
+
+    protected buildGetWorkdeskURL (endpointKey: string, floorId: string, startDate: string, endDate: string) {
+        return `${this.ROOT_URL}/${endpointKey}?id=${floorId}&startDate=${startDate}&endDate=${endDate}`;
     }
     
     get(url: string) {
