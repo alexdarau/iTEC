@@ -25,7 +25,6 @@ export class RegisterService extends ApiBase {
 
   private registerReq(data: any) {
     return this.post(this.buildURL('register'), data);
-
   }
 
   register(data: string) {
