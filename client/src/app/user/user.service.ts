@@ -20,7 +20,6 @@ export class UserService extends ApiBase {
   public currentUser$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
   
   constructor(
-    private urlSerializer : UrlSerializer,
     http: HttpClient,
     private router: Router
   ) { 
