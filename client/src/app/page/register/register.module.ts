@@ -4,6 +4,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 const routes: Routes = [
   { path: '', component: RegisterPageComponent }
@@ -18,6 +19,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatInputModule,
     RouterModule.forChild(routes)
   ],
   providers: [],
