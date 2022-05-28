@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogComponent } from 'src/app/components/dialog/dialog.component';
 import { AdministrationService } from '../administration.service';
 
 @Component({
@@ -8,7 +10,10 @@ import { AdministrationService } from '../administration.service';
 })
 export class AdministrationPageComponent implements OnInit {
 
-  constructor(private administrationService: AdministrationService) { }
+  constructor(
+    private administrationService: AdministrationService,
+    private dialog: MatDialog
+    ) { }
 
   ngOnInit(): void {
   }
@@ -25,5 +30,25 @@ export class AdministrationPageComponent implements OnInit {
   deleteOffice() {
     let officeId = "62924b7c604a9c5aefecddb6"
     this.administrationService.deleteOffice(officeId)
+  }
+
+  openDialog(){
+    const dialogConfig = new MatDialogConfig();
+
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+
+      //   dialogConfig.position = {
+      //     'top': '0',
+      //     left: '0'
+      // };
+
+    // this.dialog.open(DialogComponent, dialogConfig);
+
+    const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+        data => console.log("Dialog output:", data)
+    );    
   }
 }
