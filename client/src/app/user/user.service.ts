@@ -60,7 +60,7 @@ export class UserService extends ApiBase {
     this.currentUser$.next(null);
     localStorage.removeItem("USER_TOKEN");
     localStorage.removeItem("USER");
-    this.router.navigate(['/login'])
+    this.router.navigate(['/'])
   }
 
   public getAllowedRoutes() {
@@ -82,15 +82,15 @@ export class UserService extends ApiBase {
 
 
   private static AdminAllowedRoutes = [
-    {title: 'Dashboard', route: '/dashboard'},
-    {title: 'Location', route: '/location'},
-    {title: 'Administration', route: '/administration'},
+    {title: 'Dashboard', route: '/dashboard', icon:'home'},
+    {title: 'Location', route: '/location', icon:'home'},
+    {title: 'Administration', route: '/administration', icon:'home'},
   ]
 
   private static EmployeeAllowedRoutes = [
-    {title: 'Dashboard', route: '/dashboard'},
-    {title: 'Location', route: '/location'},
-    {title: 'Calendar', route: '/calendar'},
-    {title: 'Reservations', route: '/reservations'},
+    {title: 'Dashboard', route: '/dashboard', icon:'home'},
+    {title: 'Location', route: '/location', icon:'home'},
+    {title: 'Calendar', route: '/calendar', icon:'home'},
+    {title: 'Reservations', route: '/reservations', icon:'home'},
   ]
 }

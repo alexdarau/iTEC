@@ -16,7 +16,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public userCurrentSub: Subscription | undefined;
 
   private static defaultRoutes = [
-    {title: 'Dashboard', route: '/dashboard'}
+    {title: 'Dashboard', route: '/dashboard', icon:'none'}
   ]
 
   constructor(private userService: UserService, private router: Router) { }
@@ -50,6 +50,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     }
 
     return ''
+  }
+
+  logout() {
+    this.userService.logout();
   }
 
 }

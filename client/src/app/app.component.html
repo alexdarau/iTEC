@@ -1,4 +1,4 @@
-<div id="page">
+<div id="page" [ngClass]="{'main-page': hideNavigation}">
   <ng-container *ngIf="hideNavigation">
     <app-navigation id="navigation"></app-navigation>
   </ng-container>
