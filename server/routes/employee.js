@@ -125,6 +125,16 @@ server.get("/bookWorkdesk", async (req, res) => {
 
 });
 
+server.get("/deskFromFloor/:id", async (req, res) => {
+    const { id } = req.params;
+    await Workdesk.find({ floorId: id }).then(workdesks => {
+        res.status(200).json({
+            message: "Success",
+            workdesks
+        })
+    })
+    
+});
 
 module.exports = server;
 
