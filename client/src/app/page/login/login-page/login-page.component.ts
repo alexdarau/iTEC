@@ -23,9 +23,6 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    const user = this.userForm.value;
-
-    console.log('user: ', user);
     this.userService.login( this.userForm.value)
   }
 
