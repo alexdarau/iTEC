@@ -4,3 +4,8 @@ export interface iUser {
     fisrtName: string;
     lastName: string
 }
+
+export interface iUserReq {
+    user: iUser;
+    token: string
+}

@@ -1,9 +1,14 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 
 
 export abstract class ApiBase {
     protected endpoints: { [key: string]: string; } = {};
     readonly ROOT_URL;
+
+    private headers = new HttpHeaders({
+        'Content-Type': 'application/json',
+        'x-access-token': '' + localStorage.getItem('USER_TOKEN')
+    });
 
     constructor( protected http: HttpClient ) {
         this.ROOT_URL = 'http://localhost:3000';
@@ -29,12 +34,13 @@ export abstract class ApiBase {
     }
     
     get(url: string) {
-        return this.http.get(url);
+        return this.http.get(url, {headers: this.headers});
     }
 
-    post(url: string, payload: any) {
-        return this.http.post(url, payload);
+    post<T>(url: string, payload: any, isLogin: boolean = false) {
+        return isLogin ? this.http.post<T>(url, payload) : this.http.post<T>(url, payload, { headers:  this.headers });
     }
+
     delete(url: string) {
         return this.http.delete(url);
     }
