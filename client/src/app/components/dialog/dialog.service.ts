@@ -26,6 +26,6 @@ export class DialogService extends ApiBase{
     console.log('data', data)
     this.create(data).subscribe(res =>
       console.log('res', res)
-      )
+      );
   }
 }

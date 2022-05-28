@@ -37,7 +37,6 @@ export class AdministrationPageComponent implements OnInit {
 
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-
         dialogConfig.data = {
           offices: ['this', 'is', 'sparta']
         }

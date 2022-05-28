@@ -29,7 +29,6 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,7 +13,7 @@ export abstract class ApiBase {
     private headersImage = new HttpHeaders({
         'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
         'x-access-token': '' + localStorage.getItem('USER_TOKEN')
-    })
+    });
 
     constructor( protected http: HttpClient ) {
         this.ROOT_URL = 'http://localhost:3000';
