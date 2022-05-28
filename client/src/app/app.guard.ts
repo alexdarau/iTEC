@@ -23,7 +23,11 @@ export class AppGuard implements CanActivate {
       ];
 
       //get current user
-      let userSub = this.userService.currentUser$.subscribe(user =>{
+      let userSub = this.userService.currentUser$.subscribe(() =>{
+
+        let userLocalStorage: any  = localStorage.getItem("USER");
+        let user = JSON.parse(userLocalStorage);
+
         if (user === undefined) {
           //still loading
           return;

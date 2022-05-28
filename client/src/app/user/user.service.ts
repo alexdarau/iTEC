@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 // import { EventEmitter } from 'stream';
 import { ApiBase } from '../api-base';
-import { iUser } from './user.interface';
+import { iUser, iUserReq } from './user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +24,15 @@ export class UserService extends ApiBase {
     private router: Router
   ) { 
     super(http);
+    setTimeout(() => {
+      this.refreshCurrentUser();
+    })
+  }
+
+  refreshCurrentUser() {
+    let userLocalStorage: any  = localStorage.getItem("USER");
+    let user = JSON.parse(userLocalStorage);
+    this.currentUser$.next(user);
   }
 
   // Initialize the available routes
@@ -35,26 +44,29 @@ export class UserService extends ApiBase {
   }
 
   private loginReq (loginUserCredentials: any) {
-    return this.post(this.buildURL('login'), loginUserCredentials);
+    return this.post<iUserReq>(this.buildURL('login'), loginUserCredentials, true);
   }
 
   public login(loginUserCredentials: any) {
     this.loginReq(loginUserCredentials).subscribe((user => {
-      
-      this.currentUser$.next(user);
+      localStorage.setItem("USER_TOKEN",user.token);
+      localStorage.setItem("USER",JSON.stringify(user.user));
+      this.currentUser$.next(user.user);
       this.router.navigate(['/dashboard'])
     }))
   }
 
   public logout() {
     this.currentUser$.next(null);
+    localStorage.removeItem("USER_TOKEN");
+    localStorage.removeItem("USER");
     this.router.navigate(['/login'])
   }
 
   public getAllowedRoutes() {
     let routes = []
 
-    switch (this.currentUser$.value.user.role) {
+    switch (this.currentUser$.value.role) {
       case 'admin':
         routes = UserService.AdminAllowedRoutes;
         break;
