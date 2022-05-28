@@ -41,6 +41,7 @@ export class UserService extends ApiBase {
 
   public login(loginUserCredentials: any) {
     this.loginReq(loginUserCredentials).subscribe((user => {
+      
       this.currentUser$.next(user);
       this.router.navigate(['/dashboard'])
     }))
@@ -53,36 +54,17 @@ export class UserService extends ApiBase {
 
   public getAllowedRoutes() {
     let routes = []
-    // let routes$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
 
-
-    switch (this.currentUser$.value.role) {
+    switch (this.currentUser$.value.user.role) {
       case 'admin':
         routes = UserService.AdminAllowedRoutes;
-        // routes$.next(UserService.AdminAllowedRoutes)
         break;
-      case 'client': 
-        routes = UserService.ClientAllowedRoutes;
-        // routes$.next(UserService.ClientAllowedRoutes)
+      case 'employee': 
+        routes = UserService.EmployeeAllowedRoutes;
         break;
       default:
         throw new Error("Unknown type");
     }
-
-     this.currentUser$.subscribe(currentUser => {
-      // switch (currentUser.role) {
-      //   case 'admin':
-      //     // routes = UserService.AdminAllowedRoutes;
-      //     routes$.next(UserService.AdminAllowedRoutes)
-      //     break;
-      //   case 'client': 
-      //     // routes = UserService.ClientAllowedRoutes;
-      //     routes$.next(UserService.ClientAllowedRoutes)
-      //     break;
-      //   default:
-      //     throw new Error("Unknown type");
-      // }
-    })
 
     return routes;
   }
@@ -92,7 +74,7 @@ export class UserService extends ApiBase {
     {title: 'Map', route: '/map'}
   ]
 
-  private static ClientAllowedRoutes = [
+  private static EmployeeAllowedRoutes = [
     {title: 'Dashboard', route: '/dashboard'}
   ]
 }

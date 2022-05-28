@@ -9,6 +9,11 @@ const routes: Routes = [
     path: 'dashboard',
     canActivate: [AppGuard],
     loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
+  },
+  { 
+    path: 'map',
+    canActivate: [AppGuard],
+    loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
   }
 ];
 

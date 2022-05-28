@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,11 +22,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // AngularMaterialModule,
+    AngularMaterialModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

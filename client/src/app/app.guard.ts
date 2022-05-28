@@ -30,7 +30,7 @@ export class AppGuard implements CanActivate {
         }
 
         // we received our answer
-        userSub?.unsubscribe();
+        // userSub?.unsubscribe();
 
         // user logged out
         if(user === null) {

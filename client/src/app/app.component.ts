@@ -8,7 +8,6 @@ import {UserService} from './user/user.service'
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit, OnDestroy{
-  title = 'client';
   public userCurrentSub: Subscription | undefined;
   public hideNavigation: boolean = false;
 
