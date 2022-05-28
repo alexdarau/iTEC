@@ -1,0 +1,9 @@
+<nav id="navigation">
+    <ul>
+        <!-- Routes -->
+        <li *ngFor="let i of availableRoutes">
+            <a class="{{getSelectedClass(i)}}" routerLink="{{i.route}}">{{i.title}}</a>
+
+        </li>
+    </ul>
+</nav>
