@@ -1,5 +1,6 @@
 const express = require("express");
 const Reservation = require("../models/reservation.js");
+const Workdesk = require("../models/workdesk.js");
 var mongoose = require('mongoose');
 const server = express();
 server.use(express.json());
@@ -13,11 +14,11 @@ server.post("/book", async (req, res) => {
     const reservations = await Reservation.find({ userId: userId })
     const reservationDates = []
     reservations.forEach(reservation => {
-        console.log(reservation.startBookingTime)
-        console.log(reservation.endBookingTime)
         reservationDates.push(reservation.startBookingTime)
         reservationDates.push(reservation.endBookingTime)
     })
+    reservationDates.push(startBookingTime)
+    reservationDates.push(endBookingTime)
     if (!multipleDateRangeOverlaps(reservationDates)) {
 
         var workdeskId = mongoose.Types.ObjectId(id);
@@ -69,6 +70,59 @@ server.get("/book", async (req, res) => {
     })
 });
 
+server.get("/bookWorkdesk", async (req, res) => {
+    const { id, startDate, endDate } = req.query;
+
+    const startBookingTime = new Date(startDate)
+    const endBookingTime = new Date(endDate)
+    const floorId = new mongoose.Types.ObjectId(id);
+    let response
+    let reservationDates = []
+    let offices = []
+
+    await Workdesk.find({ floorId: floorId }).then(workdesks => {
+        console.log("🚀 ~ file: employee.js ~ line 83 ~ awaitWorkdesk.find ~ workdesks", workdesks)
+        workdesks.forEach(async workdesk => {
+            console.log("🚀 ~ file: employee.js ~ line 101 ~ Reservation.find ~ workdesk._id", workdesk._id)
+            await Reservation.find({ workdeskId: workdesk._id }).then(reservations => {
+                if (reservations.length > 0) {
+                    console.log("🚀 ~ file: employee.js ~ line 92 ~ Reservation.find ~ reservations", reservations)
+                    reservations.forEach(reservation => {
+                        reservationDates.push(reservation.startBookingTime)
+                        reservationDates.push(reservation.endBookingTime)
+                    })
+                    reservationDates.push(startBookingTime)
+                    reservationDates.push(endBookingTime)
+                    console.log("🚀 ~ file: employee.js ~ line 94 ~ Reservation.find ~ reservationDates", reservationDates)
+                    console.log(multipleDateRangeOverlaps(reservationDates))
+                    if (multipleDateRangeOverlaps(reservationDates)) {
+                        offices.push({
+                            deskId: workdesk._id,
+                            status: 'ocupat'
+                        })
+                    }
+                    else {
+                        offices.push({
+                            deskId: workdesk._id,
+                            status: 'liber'
+                        })
+                    }
+                }
+                reservationDates = []
+                return offices
+            })
+
+        })
+    })
+    console.log("Here")
+    console.log("🚀 ~ file: employee.js ~ line 108 ~ Reservation.find ~ offices", response)
+    
+    res.status(200).json({
+        message: "Success"
+    })
+});
+
+
 module.exports = server;
 
 
@@ -91,6 +145,7 @@ function multipleDateRangeOverlaps(reservationDates) {
                 )
             ) return true;
         }
+
     }
     return false;
 }
