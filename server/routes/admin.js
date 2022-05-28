@@ -9,7 +9,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 var multer = require('multer');
-  
+
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads')
@@ -18,7 +18,7 @@ var storage = multer.diskStorage({
         cb(null, file.fieldname + '-' + Date.now())
     }
 });
-  
+
 var upload = multer({ storage: storage });
 server.use(express.json());
 
@@ -44,34 +44,52 @@ server.post("/workdesk",
     }
 );
 
-server.post("/floor",
-    async (req, res) => {
-        const { name, id, map } = req.body;
-        const officeId = mongoose.Types.ObjectId(id);
-
-        const floor = {
-            name,
-            officeId,
-            map
-        };
-
-        const floorReq = await Floor.findOne({ name });
-
-        if (!floorReq) {
-            await Floor.create(
-                floor
-            ).then(floor =>
-                res.status(200).json({
-                    message: "Floor successfully created",
-                    floor,
-                })
-            )
-        } else {
-            res.status(401).json({
-                message: "Floor not created",
-            });
+server.post("/floor", upload.single('image'), async (req, res) => {
+    const { name, id, mapName } = req.body;
+    const obj = {
+        name: req.body.mapName,
+        desc: req.body.desc,
+        img: {
+            data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
         }
     }
+    const officeId = mongoose.Types.ObjectId(id);
+
+    const floor = {
+        name,
+        officeId,
+        map: mapName
+    };
+
+    const floorReq = await Floor.findOne({ name });
+
+    if (!floorReq) {
+        await Floor.create(
+            floor
+        ).then(floor => {
+            imgModel.create(obj, (err, item) => {
+                if (err) {
+                    console.log(err);
+                }
+                else {
+                    item.save();
+                    //res.redirect('/');
+                }
+            });
+
+            res.status(200).json({
+                message: "Floor successfully created",
+                floor,
+            })
+        }
+        )
+    } else {
+        res.status(401).json({
+            message: "Floor not created",
+        });
+    }
+}
 );
 
 server.post("/office",
@@ -102,8 +120,8 @@ server.post("/office",
 );
 
 server.post("/image", upload.single('image'), (req, res) => {
-  console.log(req.file.filename)
-  console.log(__dirname)
+    console.log(req.file.filename)
+    console.log(__dirname)
     var obj = {
         name: req.body.name,
         desc: req.body.desc,
@@ -126,15 +144,15 @@ server.post("/image", upload.single('image'), (req, res) => {
 
 
 server.get('/image', (req, res) => {
-	imgModel.find({}, (err, items) => {
-		if (err) {
-			console.log(err);
-			res.status(500).send('An error occurred', err);
-		}
-		else {
-			res.status(200).json({ items: items });
-		}
-	});
+    imgModel.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.status(200).json({ items: items });
+        }
+    });
 });
 
 
@@ -185,7 +203,7 @@ server.get("/floor", async (req, res) => {
     const office = await Office.findOne({ name });
     const floor = await Floor.find({ officeId: office._id });
 
-    if(!floor) {
+    if (!floor) {
         res.status(404).json({
             message: "Floor not found",
         });
@@ -202,7 +220,7 @@ server.get("/workdesk", async (req, res) => {
     const floor = await Floor.findOne({ name });
     const workdesk = await WorkDesk.find({ floorId: floor._id })
 
-    if(!workdesk) {
+    if (!workdesk) {
         res.status(404).json({
             message: "Workdesk not found",
         });
@@ -215,9 +233,9 @@ server.get("/workdesk", async (req, res) => {
 });
 
 server.get("/office", async (req, res) => {
-    const office= await Office.find()
+    const office = await Office.find()
 
-    if(!office) {
+    if (!office) {
         res.status(404).json({
             message: "Office not found",
         });
