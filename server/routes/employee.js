@@ -43,6 +43,32 @@ server.post("/book", async (req, res) => {
     }
 });
 
+server.delete("/book/:id", async (req, res) => {
+    const { id } = req.params;
+    console.log("🚀 ~ file: employee.js ~ line 48 ~ server.delete ~ reservationId", id)
+
+    Reservation.deleteOne({ _id: id }).then(response => {
+        if (response.deletedCount == 0) {
+            res.status(401).json({
+                message: "Reservation not delete",
+            });
+        } else {
+            res.status(200).json({
+                message: response
+            })
+        }
+    })
+})
+
+server.get("/book", async (req, res) => {
+
+    Reservation.find({}).then(response => {
+        res.status(200).json({
+            response: response
+        })
+    })
+});
+
 module.exports = server;
 
 
