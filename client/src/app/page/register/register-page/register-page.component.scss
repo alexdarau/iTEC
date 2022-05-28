@@ -1,17 +1,18 @@
 @import '../../../../style/colours';
 
-.login-page{
+.register-page{
     background-color: $surface-content;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-shadow: 2px 1px 20px 0px #aaaaaa;
+    flex-direction: row;
+    padding: 50px;
     .wrapper {
-        width: 500px;
-        height: 300px;
-        box-shadow: 2px 1px 39px 0px #aaaaaa;
-        padding: 50px;
+        width: 300px;
+        height: 500px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -21,7 +22,11 @@
             margin-bottom: 30px;
         }
         button {
-            margin: 10px 0;
+            margin: 10px;
+        }
+
+        .image {
+            width: 250px;
         }
     }
 }
