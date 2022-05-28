@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReservationPageComponent } from './page/reservation/reservation-page/reservation-page.component';
 
 @NgModule({
   declarations: [

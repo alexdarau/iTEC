@@ -79,5 +79,6 @@ export class UserService extends ApiBase {
     {title: 'Dashboard', route: '/dashboard'},
     {title: 'Location', route: '/location'},
     {title: 'Calendar', route: '/calendar'},
+    {title: 'Reservations', route: '/reservations'},
   ]
 }

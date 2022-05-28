@@ -25,6 +25,11 @@ const routes: Routes = [
     path: 'calendar',
     canActivate: [AppGuard],
     loadChildren: () => import('./page/calendar/calendar/calendar.module').then(m => m.CalendarModule)
+  },
+  { 
+    path: 'reservations',
+    canActivate: [AppGuard],
+    loadChildren: () => import('./page/reservation/reservation/reservation.module').then(m => m.ReservationModule)
   }
 ];
 
