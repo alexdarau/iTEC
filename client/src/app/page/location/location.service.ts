@@ -18,20 +18,23 @@ export class LocationService extends ApiBase {
 
   protected override initEndpoints() {
     this.setEndpoints({
-      office: 'office'
+      floor: 'floor',
+      office: 'office',
+      workdesk: 'workdesk',
+      book: 'book'
     })
   }
 
   private getOfficeReq() {
     return this.get(this.buildURL('office'));
   }
-  
+
   private getFloorReq(name: string) {
     return this.get(this.buildGetURL('floor', name));
   }
 
-  private getWorkdeskReq() {
-    return this.get(this.buildURL('workdesk'));
+  private getWorkdeskReq(name: string) {
+    return this.get(this.buildGetURL('workdesk', name));
   }
 
   private createWorkdeskReq(data: any) {
@@ -58,8 +61,8 @@ export class LocationService extends ApiBase {
     }))
   }
 
-  getWorkdesk() {
-    this.getWorkdeskReq().subscribe((user => {
+  getWorkdesk(name: string) {
+    this.getWorkdeskReq(name).subscribe((user => {
       console.log(user)
     }))
   }

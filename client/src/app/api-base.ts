@@ -24,8 +24,8 @@ export abstract class ApiBase {
     }
 
     protected buildURL (endpointKey: string) {
-    // let uri: string = this.endpoints[endpointKey];
-       return `${this.ROOT_URL}/${endpointKey}`;
+       let uri: string = this.endpoints[endpointKey];
+       return `${this.ROOT_URL}/${uri}`;
     }
 
     protected buildDeleteURL (endpointKey: string, id: string) {

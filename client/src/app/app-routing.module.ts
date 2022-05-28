@@ -13,12 +13,12 @@ const routes: Routes = [
   },
   { 
     path: 'location',
-    //canActivate: [AppGuard],
+    canActivate: [AppGuard],
     loadChildren: () => import('./page/location/location/location.module').then(m => m.LocationModule)
   },
   { 
     path: 'administration',
-    //canActivate: [AppGuard],
+    canActivate: [AppGuard],
     loadChildren: () => import('./page/administration/administration/administration.module').then(m => m.AdministrationModule)
   },
   { 
