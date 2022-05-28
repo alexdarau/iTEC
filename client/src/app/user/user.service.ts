@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable,EventEmitter } from '@angular/core';
 import { UrlSerializer } from '@angular/router';
-import { Router } from 'express';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 // import { EventEmitter } from 'stream';
 import { ApiBase } from '../api-base';
@@ -43,6 +43,11 @@ export class UserService extends ApiBase {
     this.loginReq(loginUserCredentials).subscribe((user => {
       this.currentUser$.next(user);
     }))
+  }
+
+  public logout() {
+    this.currentUser$.next(null);
+    this.router.navigate(['/login'])
   }
 
   public getAllowedRoutes() {
