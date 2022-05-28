@@ -1,6 +1,8 @@
 const express = require("express");
 const Users = require("../models/user.js");
 const server = express();
+const jwt = require("jsonwebtoken")
+const JWT_SECRET = "asfnajksnfkjasdnfkjsdnfkjsdnfknsdkjf"
 const encrypt = require("../helpers/encryptPassword");
 server.use(express.json());
 
@@ -15,7 +17,7 @@ server.post("/auth/login", async (req, res) => {
       error: "401: User not found",
     });
   } else {
-    
+
     let validPassword;
     await encrypt.comparePassword(password, user.password).then((res) => {
       validPassword = res
@@ -27,11 +29,16 @@ server.post("/auth/login", async (req, res) => {
         error: "402: Incorrect password",
       });
     } else {
-        await Users.updateOne(user, { lastLogin: new Date() });
-        res.status(200).json({
-          message: "Login successful",
-          user,
-        });
+      const token = jwt.sign({
+        id: user._id,
+        firstName: user.firstName
+      }, JWT_SECRET)
+      await Users.updateOne(user, { lastLogin: new Date() });
+      res.status(200).json({
+        message: "Login successful",
+        user,
+        token
+      });
     }
   }
 });

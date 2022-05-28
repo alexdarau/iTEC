@@ -157,7 +157,11 @@ server.get('/image', (req, res) => {
 
 
 server.delete("/office/:id", async (req, res) => {
+    console.log(req.params.id)
     Office.deleteOne({ _id: req.params.id }).then(response => {
+        Floor.deleteMany({ officeId: req.params.id}).then(res =>{
+            console.log(res)
+        })
         if (response.deletedCount == 0) {
             res.status(401).json({
                 message: "Office not deleted",
@@ -185,6 +189,12 @@ server.delete("/workdesk/:id", async (req, res) => {
 });
 
 server.delete("/floor/:id", async (req, res) => {
+
+    WorkDesk.find({floorId: mongoose.Types.ObjectId(req.params.id)}).then(response => {
+        WorkDesk.deleteMany({floorId: mongoose.Types.ObjectId(req.params.id)}).then(res => {
+        })
+    })
+
     Floor.deleteOne({ _id: req.params.id }).then(response => {
         if (response.deletedCount == 0) {
             res.status(401).json({
@@ -198,6 +208,7 @@ server.delete("/floor/:id", async (req, res) => {
     })
 });
 
+//adauga tratare pentru 
 server.get("/floor", async (req, res) => {
     const { name } = req.query;
     const office = await Office.findOne({ name });

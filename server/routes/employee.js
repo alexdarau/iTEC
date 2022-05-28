@@ -2,6 +2,7 @@ const express = require("express");
 const Reservation = require("../models/reservation.js");
 const Workdesk = require("../models/workdesk.js");
 var mongoose = require('mongoose');
+const auth = require("../middleware/auth");
 const server = express();
 server.use(express.json());
 
