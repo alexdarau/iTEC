@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/user/user.service';
 import { RegisterService } from '../register.service';
 
+
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',

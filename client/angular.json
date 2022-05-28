@@ -64,7 +64,8 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            }
+            },
+            "assets": [ "src/assets" ]
           },
           "defaultConfiguration": "production"
         },
