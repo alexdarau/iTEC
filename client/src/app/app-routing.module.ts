@@ -12,9 +12,9 @@ const routes: Routes = [
     loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   { 
-    path: 'map',
+    path: 'location',
     canActivate: [AppGuard],
-    loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./page/location/location/location.module').then(m => m.LocationModule)
   }
 ];
 
