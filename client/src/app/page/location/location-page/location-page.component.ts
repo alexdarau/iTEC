@@ -18,12 +18,13 @@ export class LocationPageComponent implements OnInit {
   }
 
   getFloor() {
-    let name = "Amdaris TIMISOARA"
+    let name = "ana"
     this.locationService.getFloor(name)
   }
 
   getWorkdesk() {
-    this.locationService.getWorkdesk()
+    let name = "ana"
+    this.locationService.getWorkdesk(name)
   }
 
   createWorkdesk() {
