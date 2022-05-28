@@ -60,7 +60,7 @@ export class UserService extends ApiBase {
     this.currentUser$.next(null);
     localStorage.removeItem("USER_TOKEN");
     localStorage.removeItem("USER");
-    this.router.navigate(['/login'])
+    this.router.navigate(['/'])
   }
 
   public getAllowedRoutes() {
