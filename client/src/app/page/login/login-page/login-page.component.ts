@@ -23,10 +23,10 @@ export class LoginPageComponent implements OnInit {
   }
 
   login() {
-    this.userService.login( this.userForm.value)
+    this.userService.login(this.userForm.value)
   }
 
   goToRegister() {
-    this.router.navigate(["/dashboard"])
+    this.router.navigate(["/register"])
   }
 }
