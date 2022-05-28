@@ -52,4 +52,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     return ''
   }
 
+  logout() {
+    this.userService.logout();
+  }
+
 }
