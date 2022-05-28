@@ -1,0 +1,27 @@
+@import '../../../../style/colours';
+
+.login-page{
+    background-color: $surface-content;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .wrapper {
+        width: 500px;
+        height: 300px;
+        box-shadow: 2px 1px 39px 0px #aaaaaa;
+        padding: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        h1{
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        button {
+            margin: 10px 0;
+        }
+    }
+}
