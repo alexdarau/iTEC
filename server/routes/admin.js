@@ -47,11 +47,12 @@ server.post("/workdesk", auth,
 
 server.post("/floor", auth, upload.single('image'), async (req, res) => {
     const { name, id, mapName } = req.body;
+    console.log('back', req.body)
     const obj = {
         name: req.body.mapName,
         desc: req.body.desc,
         img: {
-            data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file.filename)),
+            data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file[0].name)),
             contentType: 'image/png'
         }
     }
