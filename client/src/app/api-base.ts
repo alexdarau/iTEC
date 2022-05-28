@@ -22,6 +22,11 @@ export abstract class ApiBase {
         let uri: string = this.endpoints[endpointKey];
        return `${this.ROOT_URL}/${uri}`;
     }
+
+    protected buildDeleteURL (endpointKey: string, id: string) {
+        let uri: string = this.endpoints[endpointKey];
+       return `${this.ROOT_URL}/${uri}/${id}`;
+    }
     
     get(url: string) {
         return this.http.get(url);
@@ -29,5 +34,8 @@ export abstract class ApiBase {
 
     post(url: string, payload: any) {
         return this.http.post(url, payload);
+    }
+    delete(url: string) {
+        return this.http.delete(url);
     }
 }

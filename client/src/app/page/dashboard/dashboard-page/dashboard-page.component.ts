@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DashboardService } from '../dashboard.service';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
   }
 
+  createOffice() {
+    let office = {
+      name: "Amdaris1"
+    }
+    this.dashboardService.addOffice(office)
+  }
+  getOffice() {
+    this.dashboardService.getOffice()
+  }
+  deleteOffice() {
+    let officeId = "629248fe604a9c5aefecddb1"
+    this.dashboardService.deleteOffice(officeId)
+  }
 }
