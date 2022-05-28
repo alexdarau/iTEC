@@ -6,6 +6,7 @@ require("dotenv").config();
 var registerRoutes = require("./server/routes/registerOAuth.js");
 var loginRoutes = require("./server/routes/login.js");
 var employee = require("./server/routes/employee.js");
+var adminRoutes = require("./server/routes/admin")
 
 console.log(process.env.MONGO_DB_CONN_STRING)
 mongoose.connect(
@@ -31,3 +32,4 @@ app.listen(process.env.PORT, () => {
 app.use(registerRoutes);
 app.use(loginRoutes);
 app.use(employee);
+app.use(adminRoutes);
