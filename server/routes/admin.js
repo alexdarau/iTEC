@@ -1,11 +1,25 @@
 var express = require("express");
+var imgModel = require('../models/image');
 const WorkDesk = require("../models/workdesk");
 const Floor = require("../models/floor")
 const Office = require("../models/office");
 const id = require("faker/lib/locales/id_ID");
 const server = express();
 const mongoose = require('mongoose');
-
+const fs = require('fs');
+const path = require('path');
+var multer = require('multer');
+  
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+  
+var upload = multer({ storage: storage });
 server.use(express.json());
 
 server.post("/workdesk",
@@ -86,6 +100,43 @@ server.post("/office",
         }
     }
 );
+
+server.post("/image", upload.single('image'), (req, res) => {
+  console.log(req.file.filename)
+  console.log(__dirname)
+    var obj = {
+        name: req.body.name,
+        desc: req.body.desc,
+        img: {
+            data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    console.log("🚀 ~ file: admin.js ~ line 114 ~ server.post ~ obj", obj)
+    imgModel.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            item.save();
+            res.redirect('/');
+        }
+    });
+});
+
+
+server.get('/image', (req, res) => {
+	imgModel.find({}, (err, items) => {
+		if (err) {
+			console.log(err);
+			res.status(500).send('An error occurred', err);
+		}
+		else {
+			res.status(200).json({ items: items });
+		}
+	});
+});
+
 
 server.delete("/office/:id", async (req, res) => {
     Office.deleteOne({ _id: req.params.id }).then(response => {
