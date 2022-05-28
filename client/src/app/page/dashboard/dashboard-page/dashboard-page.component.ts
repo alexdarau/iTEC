@@ -13,17 +13,8 @@ export class DashboardPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  createOffice() {
-    let office = {
-      name: "Amdaris1"
-    }
-    this.dashboardService.addOffice(office)
-  }
-  getOffice() {
+  getAllOffices(){
     this.dashboardService.getOffice()
   }
-  deleteOffice() {
-    let officeId = "629248fe604a9c5aefecddb1"
-    this.dashboardService.deleteOffice(officeId)
-  }
+
 }
