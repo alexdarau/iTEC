@@ -12,9 +12,24 @@ const routes: Routes = [
     loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   { 
-    path: 'map',
+    path: 'location',
     canActivate: [AppGuard],
-    loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./page/location/location/location.module').then(m => m.LocationModule)
+  },
+  { 
+    path: 'administration',
+    canActivate: [AppGuard],
+    loadChildren: () => import('./page/administration/administration/administration.module').then(m => m.AdministrationModule)
+  },
+  { 
+    path: 'calendar',
+    canActivate: [AppGuard],
+    loadChildren: () => import('./page/calendar/calendar/calendar.module').then(m => m.CalendarModule)
+  },
+  { 
+    path: 'reservations',
+    canActivate: [AppGuard],
+    loadChildren: () => import('./page/reservation/reservation/reservation.module').then(m => m.ReservationModule)
   }
 ];
 
