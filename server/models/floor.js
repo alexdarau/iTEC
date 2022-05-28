@@ -8,7 +8,7 @@ const FloorSchema = new Schema({
 
     officeId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Office"
+        ref: 'Office'
     },
 
     map: {
