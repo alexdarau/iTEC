@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class AdministrationService extends ApiBase {
+export class DashboardService extends ApiBase {
 
   constructor(
     http: HttpClient,
