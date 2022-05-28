@@ -11,14 +11,12 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AdministrationPageComponent } from './page/administration/administration-page/administration-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
     NavigationComponent,
-    AdministrationPageComponent,
   ],
   imports: [
     BrowserModule,
