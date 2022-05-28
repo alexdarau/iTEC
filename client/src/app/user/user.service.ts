@@ -42,6 +42,7 @@ export class UserService extends ApiBase {
   public login(loginUserCredentials: any) {
     this.loginReq(loginUserCredentials).subscribe((user => {
       this.currentUser$.next(user);
+      this.router.navigate(['/dashboard'])
     }))
   }
 
