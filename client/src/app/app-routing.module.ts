@@ -4,12 +4,12 @@ import { AppGuard } from './app.guard';
 import { LoginPageComponent } from './page/login/login-page/login-page.component';
 
 const routes: Routes = [
-  { path: '', component: LoginPageComponent },
+  { path: 'login', component: LoginPageComponent },
   { 
-    path: '/dashboard',
+    path: 'dashboard',
     canActivate: [AppGuard],
     loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
-}
+  }
 ];
 
 @NgModule({

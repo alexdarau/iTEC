@@ -6,17 +6,20 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './page/login/login-page/login-page.component';
 import { AngularMaterialModule } from './page/angular-material/angular-material.module';
 import { DashboardPageComponent } from './page/dashboard/dashboard-page/dashboard-page.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
-    DashboardPageComponent
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AngularMaterialModule
+    AngularMaterialModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

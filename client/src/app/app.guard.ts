@@ -18,7 +18,7 @@ export class AppGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> {
     return new Observable(sub =>{
       const routesAlwaysAvailable = [
-        '/', // Root
+        '/login', // Root
         '/error' // error page
       ];
 
