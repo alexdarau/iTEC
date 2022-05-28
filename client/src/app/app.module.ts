@@ -10,7 +10,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RegisterPageComponent } from './page/register/register-page/register-page.component';
 
@@ -19,7 +18,6 @@ import { RegisterPageComponent } from './page/register/register-page/register-pa
     AppComponent,
     LoginPageComponent,
     NavigationComponent,
-    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +26,6 @@ import { RegisterPageComponent } from './page/register/register-page/register-pa
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
     BrowserAnimationsModule
   ],
   providers: [],
