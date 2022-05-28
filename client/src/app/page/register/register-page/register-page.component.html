@@ -2,30 +2,35 @@
     <div class="wrapper">
         <h1>REGISTER</h1>
         <form [formGroup]="userForm">
+
             <div class="example-container">
                 <mat-form-field appearance="fill">
                   <mat-label>Enter your email</mat-label>
-                  <input matInput placeholder="pat@example.com" [formControl]="userForm.controls.email" required>
+                  <input type="email" matInput placeholder="pat@example.com" [formControl]="userForm.controls.email" required>
                 </mat-form-field>
             </div>
+
             <div class="example-container">
                 <mat-form-field appearance="fill">
                   <mat-label>Enter your password</mat-label>
-                  <input type="password" matInput  [formControl]="userForm.controls.password" required>
+                  <input type="password" matInput placeholder="password" [formControl]="userForm.controls.password" required>
                 </mat-form-field>
               </div>
+
               <div class="example-container">
                 <mat-form-field appearance="fill">
-                  <mat-label>FirstName</mat-label>
-                  <input matInput placeholder="firstName" [formControl]="userForm.controls.firstName" required>
+                  <mat-label>First name</mat-label>
+                  <input type="text" matInput placeholder="firstName" [formControl]="userForm.controls.firstName" required>
                 </mat-form-field>
               </div>
+
               <div class="example-container">
                 <mat-form-field appearance="fill">
-                  <mat-label>Last Name</mat-label>
-                  <input matInput placeholder="lastName" [formControl]="userForm.controls.lastName" required>
+                  <mat-label>Last name</mat-label>
+                  <input type="text" matInput placeholder="lastName" [formControl]="userForm.controls.lastName" required>
                 </mat-form-field>
               </div>
+
         </form>
         <button mat-raised-button color="primary" (click)="register()">Register</button>
     </div>

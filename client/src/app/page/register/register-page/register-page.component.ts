@@ -28,9 +28,4 @@ export class RegisterPageComponent implements OnInit {
   register() {
     this.registerService.register(this.userForm.value)
   }
-
-  goToLogin() {
-    this.router.navigate(["/dashboard"])
-  }
-
 }
