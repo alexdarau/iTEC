@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: 'register', loadChildren: () => import('./page/register/register.module').then(m => m.RegisterModule)},
   { 
     path: 'dashboard',
-    canActivate: [AppGuard],
+    //canActivate: [AppGuard],
     loadChildren: () => import('./page/dashboard/dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   { 

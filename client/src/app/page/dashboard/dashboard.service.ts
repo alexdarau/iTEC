@@ -22,29 +22,13 @@ export class DashboardService extends ApiBase {
       office: 'office'
     })
   }
-
-  private createOfficeReq(data: any) {
-    return this.post(this.buildURL('office'), data);
-  }
-  private deleteOfficeReq(id: string) {
-    return this.delete(this.buildDeleteURL('office', id));
-  }
+  
   private getOfficeReq() {
     return this.get(this.buildURL('office'));
   }
 
-  addOffice(data: any) {
-    this.createOfficeReq(data).subscribe((user => {
-      console.log(user)
-    }))
-  }
   getOffice() {
     this.getOfficeReq().subscribe((user => {
-      console.log(user)
-    }))
-  }
-  deleteOffice(data: any) {
-    this.deleteOfficeReq(data).subscribe((user => {
       console.log(user)
     }))
   }
