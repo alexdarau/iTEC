@@ -109,17 +109,19 @@ server.get("/bookWorkdesk", async (req, res) => {
                     }
                 }
                 reservationDates = []
-                return offices
             })
 
         })
     })
     console.log("Here")
-    console.log("🚀 ~ file: employee.js ~ line 108 ~ Reservation.find ~ offices", response)
-    
-    res.status(200).json({
-        message: "Success"
-    })
+    function doStuff() {
+        res.status(200).json({
+            message: "Success",
+            offices
+        })
+     }
+     setTimeout(doStuff, 1500);
+
 });
 
 
