@@ -9,6 +9,7 @@ const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 var multer = require('multer');
+const auth = require('../middleware/auth');
 
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -22,7 +23,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage });
 server.use(express.json());
 
-server.post("/workdesk",
+server.post("/workdesk", auth,
     async (req, res) => {
         const { x, y, id } = req.body;
         const floorId = mongoose.Types.ObjectId(id);
@@ -44,7 +45,7 @@ server.post("/workdesk",
     }
 );
 
-server.post("/floor", upload.single('image'), async (req, res) => {
+server.post("/floor", auth, upload.single('image'), async (req, res) => {
     const { name, id, mapName } = req.body;
     const obj = {
         name: req.body.mapName,
@@ -92,7 +93,7 @@ server.post("/floor", upload.single('image'), async (req, res) => {
 }
 );
 
-server.post("/office",
+server.post("/office", auth,
     async (req, res) => {
         const { name } = req.body;
 
@@ -119,7 +120,7 @@ server.post("/office",
     }
 );
 
-server.post("/image", upload.single('image'), (req, res) => {
+server.post("/image", auth, upload.single('image'), (req, res) => {
     console.log(req.file.filename)
     console.log(__dirname)
     var obj = {
@@ -143,7 +144,7 @@ server.post("/image", upload.single('image'), (req, res) => {
 });
 
 
-server.get('/image', (req, res) => {
+server.get('/image', auth, (req, res) => {
     imgModel.find({}, (err, items) => {
         if (err) {
             console.log(err);
@@ -156,7 +157,7 @@ server.get('/image', (req, res) => {
 });
 
 
-server.delete("/office/:id", async (req, res) => {
+server.delete("/office/:id", auth, async (req, res) => {
     console.log(req.params.id)
     Office.deleteOne({ _id: req.params.id }).then(response => {
         Floor.deleteMany({ officeId: req.params.id}).then(res =>{
@@ -174,7 +175,7 @@ server.delete("/office/:id", async (req, res) => {
     })
 });
 
-server.delete("/workdesk/:id", async (req, res) => {
+server.delete("/workdesk/:id", auth, async (req, res) => {
     WorkDesk.deleteOne({ _id: req.params.id }).then(response => {
         if (response.deletedCount == 0) {
             res.status(401).json({
@@ -188,7 +189,7 @@ server.delete("/workdesk/:id", async (req, res) => {
     })
 });
 
-server.delete("/floor/:id", async (req, res) => {
+server.delete("/floor/:id", auth, async (req, res) => {
 
     WorkDesk.find({floorId: mongoose.Types.ObjectId(req.params.id)}).then(response => {
         WorkDesk.deleteMany({floorId: mongoose.Types.ObjectId(req.params.id)}).then(res => {
@@ -209,7 +210,7 @@ server.delete("/floor/:id", async (req, res) => {
 });
 
 //adauga tratare pentru 
-server.get("/floor", async (req, res) => {
+server.get("/floor", auth, async (req, res) => {
     const { name } = req.query;
     const office = await Office.findOne({ name });
     const floor = await Floor.find({ officeId: office._id });
@@ -226,7 +227,7 @@ server.get("/floor", async (req, res) => {
     }
 });
 
-server.get("/workdesk", async (req, res) => {
+server.get("/workdesk", auth, async (req, res) => {
     const { name } = req.query;
     const floor = await Floor.findOne({ name });
     const workdesk = await WorkDesk.find({ floorId: floor._id })
@@ -243,7 +244,7 @@ server.get("/workdesk", async (req, res) => {
     }
 });
 
-server.get("/office", async (req, res) => {
+server.get("/office", auth, async (req, res) => {
     const office = await Office.find()
 
     if (!office) {
