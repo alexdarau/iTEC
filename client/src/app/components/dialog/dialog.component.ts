@@ -15,6 +15,7 @@ export class DialogComponent implements OnInit {
   public dataToSelect:any = [];
   selectedFile: File;
   hideSelect: boolean = false
+  hideInput: boolean = false;
 
     constructor(
         private fb: FormBuilder,
@@ -26,6 +27,7 @@ export class DialogComponent implements OnInit {
         this.description = data?.description;
         this.dataToSelect = data?.offices;
         this.hideSelect = data?.isInput;
+        this.hideInput = data?.isSelect;
     }
 
     ngOnInit() {
@@ -44,14 +46,11 @@ export class DialogComponent implements OnInit {
     }
 
     onUpload() {
-        // this.http is the injected HttpClient
         const uploadData = new FormData();
         uploadData.append('image', this.selectedFile, this.selectedFile.name);
         console.log('uploadData', uploadData.getAll('image'));
         console.log('selectedFile', this.selectedFile);
         this.dialogService.createFloor(uploadData)
-        // this.http.post('my-backend.com/file-upload', uploadData)
-        //   .subscribe();
       }
       onFileChanged(event: any) {
         this.selectedFile = event.target.files[0];

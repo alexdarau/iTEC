@@ -33,9 +33,9 @@ export abstract class ApiBase {
        return `${this.ROOT_URL}/${uri}`;
     }
 
-    protected buildDeleteURL (endpointKey: string, id: string) {
+    protected buildDeleteURL (endpointKey: string, name: string) {
         let uri: string = this.endpoints[endpointKey];
-       return `${this.ROOT_URL}/${uri}/${id}`;
+       return `${this.ROOT_URL}/${uri}/${name}`;
     }
 
     protected buildGetURL (endpointKey: string, resourceName: string) {
@@ -59,6 +59,6 @@ export abstract class ApiBase {
     }
 
     delete(url: string) {
-        return this.http.delete(url);
+        return this.http.delete(url, {headers: this.headers});
     }
 }

@@ -22,7 +22,7 @@ export class AdministrationPageComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    this.getOffices();
   }
 
   createOffice(office: any) {
@@ -32,19 +32,19 @@ export class AdministrationPageComponent implements OnInit {
   getOffice() {
     this.administrationService.getOffice()
   }
-  deleteOffice() {
-    let officeId = "62924b7c604a9c5aefecddb6"
+  deleteOffice(officeId: any) {
     this.administrationService.deleteOffice(officeId)
   }
 
-  openDialog(isInput?:boolean){
+  openDialog(isInput: boolean, isSelect: boolean){
     const dialogConfig = new MatDialogConfig();
 
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.data = {
           offices: this.offices,
-          isInput: isInput
+          isInput: isInput,
+          isSelect: isSelect
         }
 
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
@@ -52,8 +52,9 @@ export class AdministrationPageComponent implements OnInit {
     dialogRef.afterClosed().subscribe(
         data => {
           if (data) {
+            console.log(data);
             isInput ? null :  data["map"]="office-map.png";
-            isInput ? this.createOffice(data) : this.administrationService.createFloorReq(data).subscribe((user => {  }))
+            isInput ? this.createOffice(data) : isSelect ? this.deleteOffice(data.selectedData) : this.administrationService.createFloorReq(data).subscribe((user => {  }))
           }
         }
     );    

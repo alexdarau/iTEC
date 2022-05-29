@@ -9,7 +9,7 @@
           </mat-option>
         </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="!hideInput">
         <input matInput placeholder="Name" formControlName="name">
     </mat-form-field>
 </mat-dialog-content>
