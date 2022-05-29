@@ -69,6 +69,10 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
     })
   }
 
+  changeClient(value: any) {
+    console.log(value);
+  }
+
   getWorkdesk() {
     let name = "ana"
     this.locationService.getWorkdesk(name)

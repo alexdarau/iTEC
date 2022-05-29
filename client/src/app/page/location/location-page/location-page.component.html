@@ -11,9 +11,9 @@
     <div *ngIf="!isLoading">
         <mat-form-field appearance="fill" >
             <mat-label>Choose Office</mat-label>
-            <mat-select>
+            <mat-select (selectionChange)="changeClient($event.value)">
                 <mat-optgroup *ngFor="let group of officeGroups$.getValue()" [label]="group.name">
-                    <mat-option *ngFor="let floor of group.floors" [value]="floor.value">
+                    <mat-option *ngFor="let floor of group.floors" [value]="floor">
                         {{floor.name}}
                     </mat-option>
                 </mat-optgroup>
