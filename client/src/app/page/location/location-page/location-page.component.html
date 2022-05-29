@@ -19,5 +19,10 @@
                 </mat-optgroup>
             </mat-select>
           </mat-form-field>
+
+          <div *ngIf="imageURL" class="image-div">
+              <img src="{{imageURL}}">
+          </div>
+
     </div>
 </div>

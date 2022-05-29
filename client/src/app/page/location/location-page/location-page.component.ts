@@ -15,6 +15,8 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
   public floors: iFloor[] = [];
   public officeGroups$: BehaviorSubject<any> = new BehaviorSubject([]);
   public isLoading: boolean = true;
+
+  public imageURL: string;
   constructor(private locationService: LocationService) { 
     this.locationService.getOffice();
   }
@@ -71,6 +73,7 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
 
   changeClient(value: any) {
     console.log(value);
+    this.imageURL = `../../../../assets/${value.map}`
   }
 
   getWorkdesk() {
