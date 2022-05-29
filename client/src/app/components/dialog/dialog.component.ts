@@ -14,6 +14,7 @@ export class DialogComponent implements OnInit {
   description:string;
   public dataToSelect:any = [];
   selectedFile: File;
+  hideSelect: boolean = false
 
     constructor(
         private fb: FormBuilder,
@@ -22,9 +23,9 @@ export class DialogComponent implements OnInit {
         private dialogService: DialogService
         
         ) {
-        console.log(data)
         this.description = data?.description;
-        this.dataToSelect = data?.offices
+        this.dataToSelect = data?.offices;
+        this.hideSelect = data?.isInput;
     }
 
     ngOnInit() {

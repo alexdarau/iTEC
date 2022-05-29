@@ -23,14 +23,11 @@ export class AdministrationPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getOffices();
   }
 
-  createOffice() {
-    let office = {
-      name: "Amdaris1"
-    }
-    this.administrationService.addOffice(office)
+  createOffice(office: any) {
+    this.administrationService.addOffice(office);
+    this.getOffices();
   }
   getOffice() {
     this.administrationService.getOffice()
@@ -40,24 +37,24 @@ export class AdministrationPageComponent implements OnInit {
     this.administrationService.deleteOffice(officeId)
   }
 
-  openDialog(){
+  openDialog(isInput?:boolean){
     const dialogConfig = new MatDialogConfig();
 
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
         dialogConfig.data = {
-          offices: this.offices
+          offices: this.offices,
+          isInput: isInput
         }
 
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
         data => {
-          console.log("Dialog output:", data);
-          data["map"]="office-map.png";
-          this.administrationService.createFloorReq(data).subscribe((user => {
-            console.log(user)
-          }))
+          if (data) {
+            isInput ? null :  data["map"]="office-map.png";
+            isInput ? this.createOffice(data) : this.administrationService.createFloorReq(data).subscribe((user => {  }))
+          }
         }
     );    
   }
