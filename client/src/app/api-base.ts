@@ -39,16 +39,19 @@ export abstract class ApiBase {
     }
 
     protected buildGetURL (endpointKey: string, resourceName: string) {
-        let uri: string = this.endpoints[endpointKey];
        return `${this.ROOT_URL}/${endpointKey}/?name=${resourceName}`;
     }
+
+    protected buildGetURLById (endpointKey: string, resourceName: string) {
+        return `${this.ROOT_URL}/${endpointKey}/?_id=${resourceName}`;
+     }
 
     protected buildGetWorkdeskURL (endpointKey: string, floorId: string, startDate: string, endDate: string) {
         return `${this.ROOT_URL}/${endpointKey}?id=${floorId}&startDate=${startDate}&endDate=${endDate}`;
     }
     
-    get(url: string) {
-        return this.http.get(url, {headers: this.headers});
+    get<T>(url: string) {
+        return this.http.get<T>(url, {headers: this.headers});
     }
 
     post<T>(url: string, payload: any, isLogin: boolean = false, isImage?: boolean) {

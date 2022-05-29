@@ -25,13 +25,13 @@ server.use(express.json());
 
 server.post("/workdesk", auth,
     async (req, res) => {
-        const { x, y, id } = req.body;
-        const floorId = mongoose.Types.ObjectId(id);
+        const { x, y, floorId } = req.body;
+        const _floorId = mongoose.Types.ObjectId(floorId);
 
         const work = {
             x,
             y,
-            floorId
+            floorId: _floorId
         };
 
         await WorkDesk.create(
@@ -45,7 +45,7 @@ server.post("/workdesk", auth,
     }
 );
 
-server.post("/floor", auth, upload.single('image'), async (req, res) => {
+server.post("/floor", upload.single('image'), async (req, res) => {
     const { name, id, mapName } = req.body;
     console.log('back', req.body);
     
@@ -162,7 +162,7 @@ server.get('/image', auth, (req, res) => {
 server.delete("/office/:id", auth, async (req, res) => {
     console.log(req.params.id)
     Office.deleteOne({ _id: req.params.id }).then(response => {
-        Floor.deleteMany({ officeId: req.params.id}).then(res =>{
+        Floor.deleteMany({ officeId: req.params.id }).then(res => {
             console.log(res)
         })
         if (response.deletedCount == 0) {
@@ -193,8 +193,8 @@ server.delete("/workdesk/:id", auth, async (req, res) => {
 
 server.delete("/floor/:id", auth, async (req, res) => {
 
-    WorkDesk.find({floorId: mongoose.Types.ObjectId(req.params.id)}).then(response => {
-        WorkDesk.deleteMany({floorId: mongoose.Types.ObjectId(req.params.id)}).then(res => {
+    WorkDesk.find({ floorId: mongoose.Types.ObjectId(req.params.id) }).then(response => {
+        WorkDesk.deleteMany({ floorId: mongoose.Types.ObjectId(req.params.id) }).then(res => {
         })
     })
 
@@ -211,29 +211,40 @@ server.delete("/floor/:id", auth, async (req, res) => {
     })
 });
 
-//adauga tratare pentru 
+
 server.get("/floor", auth, async (req, res) => {
     const { name } = req.query;
-    const office = await Office.findOne({ name });
-    const floor = await Floor.find({ officeId: office._id });
+    if (name) {
+        const office = await Office.findOne({ name });
+        if (office) {
+            const floor = await Floor.find({ officeId: office._id });
 
-    if (!floor) {
-        res.status(404).json({
-            message: "Floor not found",
-        });
-    } else {
-        res.status(200).json({
-            message: "Get floors successfully",
-            floor
-        })
+            if (!floor) {
+                res.status(404).json({
+                    message: "Floor not found",
+                });
+            } else {
+                res.status(200).json({
+                    message: "Get floors successfully",
+                    floor
+                })
+            }
+        }
+        else{
+            res.status(404).json({ message: "Name not provided" })
+        }
+    }
+    else {
+        res.status(404).json({ message: "Name not provided" })
     }
 });
 
 server.get("/workdesk", auth, async (req, res) => {
-    const { name } = req.query;
-    const floor = await Floor.findOne({ name });
+    const { _id } = req.query;
+    // console.log("🚀 ~ file: admin.js ~ line 242 ~ server.get ~ name", _id)
+    const floor = await Floor.findOne({ _id });
+    if(floor){
     const workdesk = await WorkDesk.find({ floorId: floor._id })
-
     if (!workdesk) {
         res.status(404).json({
             message: "Workdesk not found",
@@ -244,6 +255,12 @@ server.get("/workdesk", auth, async (req, res) => {
             workdesk
         })
     }
+}
+else{
+    res.status(404).json({
+        message: "Floor does not exist"
+    });
+}
 });
 
 server.get("/office", auth, async (req, res) => {
