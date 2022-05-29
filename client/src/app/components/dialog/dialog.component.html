@@ -4,8 +4,8 @@
     <mat-form-field appearance="fill">
         <mat-label>Favorite food</mat-label>
         <mat-select formControlName="selectedData">
-          <mat-option *ngFor="let data of dataToSelect" [value]="data">
-            {{data}}
+          <mat-option *ngFor="let data of dataToSelect" [value]="data.name">
+            {{data.name}}
           </mat-option>
         </mat-select>
     </mat-form-field>
@@ -13,12 +13,12 @@
         <input matInput placeholder="Floor name" formControlName="name">
     </mat-form-field>
 </mat-dialog-content>
-<input
+<!-- <input
   style="display: none"
   type="file" (change)="onFileChanged($event)"
   #fileInput>
 <button (click)="fileInput.click()">Select File</button>
-<button class="mat-raised-button" (click)="onUpload()">Upload!</button>
+<button class="mat-raised-button" (click)="onUpload()">Upload!</button> -->
 <mat-dialog-actions>
     <button class="mat-raised-button"(click)="close()">Close</button>
     <button class="mat-raised-button mat-primary"(click)="save()">Save</button>

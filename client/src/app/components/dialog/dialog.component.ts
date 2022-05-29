@@ -12,7 +12,7 @@ export class DialogComponent implements OnInit {
 
   form: FormGroup;
   description:string;
-  public dataToSelect = [];
+  public dataToSelect:any = [];
   selectedFile: File;
 
     constructor(

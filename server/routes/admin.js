@@ -45,24 +45,24 @@ server.post("/workdesk", auth,
     }
 );
 
-server.post("/floor", upload.single('image'), async (req, res) => {
-    const { name, id, mapName } = req.body;
+server.post("/floor",auth, async (req, res) => {
+    const { name, id, map } = req.body;
     console.log('back', req.body);
     
-    const obj = {
-        name: req.body.mapName,
-        desc: req.body.desc,
-        img: {
-            data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file[0].name)),
-            contentType: 'image/png'
-        }
-    }
+    // const obj = {
+    //     name: req.body.map,
+    //     desc: req.body.desc,
+    //     img: {
+    //         data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file[0].name)),
+    //         contentType: 'image/png'
+    //     }
+    // }
     const officeId = mongoose.Types.ObjectId(id);
 
     const floor = {
         name,
         officeId,
-        map: mapName
+        map: map
     };
 
     const floorReq = await Floor.findOne({ name });
@@ -71,15 +71,15 @@ server.post("/floor", upload.single('image'), async (req, res) => {
         await Floor.create(
             floor
         ).then(floor => {
-            imgModel.create(obj, (err, item) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    item.save();
-                    //res.redirect('/');
-                }
-            });
+            // imgModel.create(obj, (err, item) => {
+            //     if (err) {
+            //         console.log(err);
+            //     }
+            //     else {
+            //         item.save();
+            //         //res.redirect('/');
+            //     }
+            // });
 
             res.status(200).json({
                 message: "Floor successfully created",
