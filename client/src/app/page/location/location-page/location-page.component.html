@@ -22,7 +22,7 @@
 
           <div *ngIf="imageURL" class="image-div">
               <img id="office-image" src="{{imageURL}}" (click)="createMarker($event)">
-              <mat-radio-button hidden="!showDesk" id="desk"></mat-radio-button>
+              <mat-radio-button id="desk" (click)="confirm($event)"></mat-radio-button>
           </div>
 
     </div>

@@ -38,13 +38,6 @@ export class AdministrationPageComponent implements OnInit {
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
 
-      //   dialogConfig.position = {
-      //     'top': '0',
-      //     left: '0'
-      // };
-
-    // this.dialog.open(DialogComponent, dialogConfig);
-
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(

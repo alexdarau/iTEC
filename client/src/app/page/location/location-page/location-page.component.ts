@@ -3,6 +3,8 @@ import { BehaviorSubject } from 'rxjs';
 import { iFloor } from 'src/app/interfaces/floor.interface';
 import { iOffice } from 'src/app/interfaces/offcie.interface';
 import { LocationService } from '../location.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { LocationDialogComponent } from '../location-dialog/location-dialog.component';
 
 @Component({
   selector: 'app-location-page',
@@ -15,10 +17,10 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
   public floors: iFloor[] = [];
   public officeGroups$: BehaviorSubject<any> = new BehaviorSubject([]);
   public isLoading: boolean = true;
-  public showDesk: boolean = false;
+  // public showDesk: boolean = false;
 
   public imageURL: string;
-  constructor(private locationService: LocationService) { 
+  constructor(private locationService: LocationService, private dialog: MatDialog) { 
     this.locationService.getOffice();
   }
 
@@ -75,16 +77,36 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
 
   createMarker(e: any) {
     console.log(e.target);
+    let clientHeight = document.getElementById('desk-image')?.clientHeight ?? 0;
+    let clientWidth = document.getElementById('desk-image')?.clientWidth ?? 0;
     let rect = e.target.getBoundingClientRect();
-    let x = e.clientX - rect.left; //x position within the element.
-    let y = e.clientY - rect.top;  //y position within the element.
+    let x = clientWidth + e.clientX - rect.left; //x position within the element.
+    let y = clientHeight + e.clientY - rect.top;  //y position within the element.
 
-    console.log(x,y);
-    this.showDesk = true;
     const deskBtn = document.getElementById('desk');
-    console.log(deskBtn)
-    //e.target.getBoundingClientRect();
+    if (deskBtn) {
+      deskBtn.style.top = y + 'px';
+      deskBtn.style.left = x + 'px';
+      deskBtn.style.position = 'absolute';
+      deskBtn.style.display = 'block';
+    }
+
   }
+
+
+  confirm(event: any) {
+    console.log(event)
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+
+    const dialogRef = this.dialog.open(LocationDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(
+        data => console.log("Dialog output:", data)
+);    
+}
 
   createWorkdesk() {
     let workdesk = {

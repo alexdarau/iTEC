@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { LocationDialogComponent } from '../location-dialog/location-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const routes: Routes = [
   { path: '', component: LocationPageComponent }
@@ -16,7 +18,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    LocationPageComponent
+    LocationPageComponent,
+    LocationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +29,8 @@ const routes: Routes = [
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule
   ],
   providers: [],
   exports: [RouterModule],
