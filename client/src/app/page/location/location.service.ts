@@ -42,6 +42,7 @@ export class LocationService extends ApiBase {
 
   private getWorkdeskReq(name: string) {
     return this.get(this.buildGetURL('workdesk', name));
+    
   }
 
   private createWorkdeskReq(data: any) {

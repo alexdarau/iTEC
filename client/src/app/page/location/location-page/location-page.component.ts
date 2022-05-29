@@ -31,7 +31,7 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
       console.log(this.officeGroups$.value);
       this.isLoading = false;
 
-    }, 500)
+    }, 1000)
   }
 
   inistializeSelector(){
@@ -43,7 +43,6 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
       this.locationService.getFloorReq(office.name).subscribe(value => {
         officeObj['name'] = office.name;
         officeObj['floors'] = value.floor;
-        console.log(officeObj);
         populateData.push(officeObj);
       });
         this.officeGroups$.next(populateData);
