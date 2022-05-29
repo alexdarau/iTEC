@@ -25,7 +25,7 @@ export class LocationDialogComponent implements OnInit {
   }
 
   create() {
-    this.dialogRef.close(this.form.value);
+    this.dialogRef.close(true);
 }
 
     close() {

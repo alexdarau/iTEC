@@ -17,6 +17,9 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
   public floors: iFloor[] = [];
   public officeGroups$: BehaviorSubject<any> = new BehaviorSubject([]);
   public isLoading: boolean = true;
+  private coordX = 0;
+  private coordY = 0; 
+  private floorID = '';
   // public showDesk: boolean = false;
 
   public imageURL: string;
@@ -67,7 +70,9 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
   }
 
   changeClient(value: any) {
-    this.imageURL = `../../../../assets/${value.map}`
+    console.log(value)
+    this.imageURL = `../../../../assets/${value.map}`;
+    this.floorID = value._id
   }
 
   getWorkdesk() {
@@ -91,11 +96,13 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
       deskBtn.style.display = 'block';
     }
 
+    this.coordX = x;
+    this.coordY = y;
+
   }
 
 
   confirm(event: any) {
-    console.log(event)
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -104,19 +111,21 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
     const dialogRef = this.dialog.open(LocationDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-        data => console.log("Dialog output:", data)
-);    
+        data => {
+          console.log("Dialog output:", data);
+          let workdesk = {
+            x: this.coordX,
+            y: this.coordY,
+            floorId: "62916454ff32ccb8c9ae4d95"
+          }
+          if(data) {
+            this.locationService.createWorkdesk(workdesk)
+          }
+        }
+
+        );    
 }
 
-  createWorkdesk() {
-    let workdesk = {
-      x: 10,
-      y: 7,
-      floorId: "62916454ff32ccb8c9ae4d95"
-    }
-    
-    this.locationService.createWorkdesk(workdesk)
-  }
 
   bookWorkdesk() {
     let booking = {
