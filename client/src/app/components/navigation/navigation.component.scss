@@ -17,6 +17,19 @@
     &--li{
         padding: 20px;
         font-size: 20px;
+        display: flex;
+        align-items: center;
+        color: $surface-header
+    }
+    &--icon{
+        margin-right: 5px;
+    }
+    &--a {
+        text-decoration: none;
+        color: $surface-header
+    }
+    &--selected {
+        color: $surface
     }
     .logout-button {
         margin-bottom: 10px;

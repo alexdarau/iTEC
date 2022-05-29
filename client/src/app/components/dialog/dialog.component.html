@@ -1,14 +1,18 @@
 <h2 mat-dialog-title>{{description}}</h2>
 
 <mat-dialog-content [formGroup]="form">
-  
-    <mat-form-field>
-        <input matInput
-                placeholder="Course Description"
-               formControlName="description">
+    <mat-form-field appearance="fill" *ngIf="!hideSelect">
+        <mat-label>Choose..</mat-label>
+        <mat-select formControlName="selectedData">
+          <mat-option *ngFor="let data of dataToSelect" [value]="data.name">
+            {{data.name}}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="!hideInput">
+        <input matInput placeholder="Name" formControlName="name">
     </mat-form-field>
 </mat-dialog-content>
-
 <mat-dialog-actions>
     <button class="mat-raised-button"(click)="close()">Close</button>
     <button class="mat-raised-button mat-primary"(click)="save()">Save</button>

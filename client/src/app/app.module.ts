@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { LocationDialogComponent } from './page/location/location-dialog/location-dialog.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,6 @@ import { DialogComponent } from './components/dialog/dialog.component';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

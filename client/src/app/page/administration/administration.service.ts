@@ -19,7 +19,8 @@ export class AdministrationService extends ApiBase {
   // Initialize the available routes
   protected override initEndpoints() {
     this.setEndpoints({
-      office: 'office'
+      office: 'office',
+      floor: 'floor',
     })
   }
 
@@ -32,6 +33,11 @@ export class AdministrationService extends ApiBase {
   private getOfficeReq() {
     return this.get(this.buildURL('office'));
   }
+
+  public createFloorReq(data: any) {
+    return this.post(this.buildURL('floor'), data);
+  }
+  
 
   addOffice(data: any) {
     this.createOfficeReq(data).subscribe((user => {
@@ -48,4 +54,6 @@ export class AdministrationService extends ApiBase {
       console.log(user)
     }))
   }
+
+
 }

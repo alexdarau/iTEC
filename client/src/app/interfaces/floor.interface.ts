@@ -4,7 +4,7 @@ export interface iFloor{
     map: string;
 }
 
-export interface iFlooreReq{
+export interface iFloorReq{
     message: string;
     floor: iFloor[];
 }

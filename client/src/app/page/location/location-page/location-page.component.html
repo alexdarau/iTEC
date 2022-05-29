@@ -1,8 +1,27 @@
-<div>
-    <button mat-raised-button color="primary" (click)="getOffice()">Get all offices</button>
+<div class="location-page">
+    <!-- <button mat-raised-button color="primary" (click)="getOffice()">Get all offices</button>
     <button mat-raised-button color="primary" (click)="getFloor()">Get floor</button>
-    <button mat-raised-button color="primary" (click)="getWorkdesk()">Get workdesk by FLOOR ID</button>
-    <button mat-raised-button color="primary" (click)="createWorkdesk()">Create workdesk</button>
     <button mat-raised-button color="primary" (click)="bookWorkdesk()">Book workdesk</button>
-    <button mat-raised-button color="primary" (click)="getWorkdeskByDate()">Get workdesk by DATE</button>
+    <button mat-raised-button color="primary" (click)="getWorkdeskByDate()">Get workdesk by DATE</button> -->
+    <div *ngIf="isLoading" class="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!isLoading">
+        <mat-form-field appearance="fill" >
+            <mat-label>Choose..</mat-label>
+            <mat-select (selectionChange)="changeClient($event.value)">
+                <mat-optgroup *ngFor="let group of officeGroups$.getValue()" [label]="group.name">
+                    <mat-option *ngFor="let floor of group.floors" [value]="floor">
+                        {{floor.name}}
+                    </mat-option>
+                </mat-optgroup>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="imageURL" class="image-div">
+              <img id="office-image" src="{{imageURL}}" (click)="createMarker($event)">
+              <mat-radio-button id="desk" (click)="confirm($event)"></mat-radio-button>
+          </div>
+
+    </div>
 </div>

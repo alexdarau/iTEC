@@ -3,11 +3,19 @@ import { ApiBase } from 'src/app/api-base';
 import { UserService } from 'src/app/user/user.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { iOffice, iOfficeReq } from 'src/app/interfaces/offcie.interface';
+import { iFloor, iFloorReq } from 'src/app/interfaces/floor.interface';
+import { iWorkDesk } from 'src/app/interfaces/workDesk.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService extends ApiBase {
+
+  public offices$ : BehaviorSubject<iOffice[]> =  new BehaviorSubject<iOffice[]>([]);
+  public floor$ : BehaviorSubject<iFloor[]> =  new BehaviorSubject<iFloor[]>([]);
+  floor: iFloor[] = [];
 
   constructor(
     http: HttpClient,
@@ -26,19 +34,20 @@ export class LocationService extends ApiBase {
   }
 
   private getOfficeReq() {
-    return this.get(this.buildURL('office'));
+    return this.get<iOfficeReq>(this.buildURL('office'));
   }
 
-  private getFloorReq(name: string) {
-    return this.get(this.buildGetURL('floor', name));
+  public getFloorReq(name: string) {
+    return this.get<iFloorReq>(this.buildGetURL('floor', name));
   }
 
   private getWorkdeskReq(name: string) {
-    return this.get(this.buildGetURL('workdesk', name));
+    return this.get(this.buildGetURLById('workdesk', name));
+    
   }
 
   private createWorkdeskReq(data: any) {
-    return this.post(this.buildURL('workdesk'), data);
+    return this.post<iWorkDesk>(this.buildURL('workdesk'), data);
   }
 
   private bookWorkdeskReq(data: any) {
@@ -50,14 +59,15 @@ export class LocationService extends ApiBase {
   }
 
   getOffice() {
-    this.getOfficeReq().subscribe((user => {
-      console.log(user)
+    this.getOfficeReq().subscribe((offices => {
+      this.offices$.next(offices.office);
     }))
   }
 
   getFloor(name: string) {
-    this.getFloorReq(name).subscribe((user => {
-      console.log(user)
+    this.getFloorReq(name).subscribe((floors => {
+      console.log(floors);
+      // this.floor$.next(floors.floor);
     }))
   }
 

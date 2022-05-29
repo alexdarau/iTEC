@@ -25,13 +25,13 @@ server.use(express.json());
 
 server.post("/workdesk", auth,
     async (req, res) => {
-        const { x, y, id } = req.body;
-        const floorId = mongoose.Types.ObjectId(id);
+        const { x, y, floorId } = req.body;
+        const _floorId = mongoose.Types.ObjectId(floorId);
 
         const work = {
             x,
             y,
-            floorId
+            floorId: _floorId
         };
 
         await WorkDesk.create(
@@ -45,22 +45,24 @@ server.post("/workdesk", auth,
     }
 );
 
-server.post("/floor", upload.single('image'), async (req, res) => {
-    const { name, id, mapName } = req.body;
-    const obj = {
-        name: req.body.mapName,
-        desc: req.body.desc,
-        img: {
-            data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
+server.post("/floor",auth, async (req, res) => {
+    const { name, id, map } = req.body;
+    console.log('back', req.body);
+    
+    // const obj = {
+    //     name: req.body.map,
+    //     desc: req.body.desc,
+    //     img: {
+    //         data: fs.readFileSync(path.join("D:/Poli/iTEC" + '/uploads/' + req.file[0].name)),
+    //         contentType: 'image/png'
+    //     }
+    // }
     const officeId = mongoose.Types.ObjectId(id);
 
     const floor = {
         name,
         officeId,
-        map: mapName
+        map: map
     };
 
     const floorReq = await Floor.findOne({ name });
@@ -69,15 +71,15 @@ server.post("/floor", upload.single('image'), async (req, res) => {
         await Floor.create(
             floor
         ).then(floor => {
-            imgModel.create(obj, (err, item) => {
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    item.save();
-                    //res.redirect('/');
-                }
-            });
+            // imgModel.create(obj, (err, item) => {
+            //     if (err) {
+            //         console.log(err);
+            //     }
+            //     else {
+            //         item.save();
+            //         //res.redirect('/');
+            //     }
+            // });
 
             res.status(200).json({
                 message: "Floor successfully created",
@@ -238,12 +240,11 @@ server.get("/floor", auth, async (req, res) => {
 });
 
 server.get("/workdesk", auth, async (req, res) => {
-    const { name } = req.query;
-    console.log("🚀 ~ file: admin.js ~ line 242 ~ server.get ~ name", name)
-    const floor = await Floor.findOne({ name });
+    const { _id } = req.query;
+    // console.log("🚀 ~ file: admin.js ~ line 242 ~ server.get ~ name", _id)
+    const floor = await Floor.findOne({ _id });
     if(floor){
     const workdesk = await WorkDesk.find({ floorId: floor._id })
-
     if (!workdesk) {
         res.status(404).json({
             message: "Workdesk not found",

@@ -83,14 +83,14 @@ export class UserService extends ApiBase {
 
   private static AdminAllowedRoutes = [
     {title: 'Dashboard', route: '/dashboard', icon:'home'},
-    {title: 'Location', route: '/location', icon:'home'},
-    {title: 'Administration', route: '/administration', icon:'home'},
+    {title: 'Location', route: '/location', icon:'map'},
+    {title: 'Administration', route: '/administration', icon:'settings_system_daydream'},
   ]
 
   private static EmployeeAllowedRoutes = [
     {title: 'Dashboard', route: '/dashboard', icon:'home'},
-    {title: 'Location', route: '/location', icon:'home'},
-    {title: 'Calendar', route: '/calendar', icon:'home'},
+    {title: 'Location', route: '/location', icon:'map'},
+    {title: 'Calendar', route: '/calendar', icon:'today'},
     {title: 'Reservations', route: '/reservations', icon:'home'},
   ]
 }

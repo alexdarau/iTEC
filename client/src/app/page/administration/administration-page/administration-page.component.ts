@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DialogComponent } from 'src/app/components/dialog/dialog.component';
+import { iOffice } from 'src/app/interfaces/offcie.interface';
+import { LocationService } from '../../location/location.service';
 import { AdministrationService } from '../administration.service';
 
 @Component({
@@ -10,45 +12,57 @@ import { AdministrationService } from '../administration.service';
 })
 export class AdministrationPageComponent implements OnInit {
 
+  private offices: iOffice[] = [];
   constructor(
     private administrationService: AdministrationService,
-    private dialog: MatDialog
-    ) { }
+    private dialog: MatDialog,
+    private locationService: LocationService
+    ) { 
+      this.locationService.getOffice();
+    }
 
   ngOnInit(): void {
+    this.getOffices();
   }
 
-  createOffice() {
-    let office = {
-      name: "Amdaris1"
-    }
-    this.administrationService.addOffice(office)
+  createOffice(office: any) {
+    this.administrationService.addOffice(office);
+    this.getOffices();
   }
   getOffice() {
     this.administrationService.getOffice()
   }
-  deleteOffice() {
-    let officeId = "62924b7c604a9c5aefecddb6"
+  deleteOffice(officeId: any) {
     this.administrationService.deleteOffice(officeId)
   }
 
-  openDialog(){
+  openDialog(isInput: boolean, isSelect: boolean){
     const dialogConfig = new MatDialogConfig();
 
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-
-      //   dialogConfig.position = {
-      //     'top': '0',
-      //     left: '0'
-      // };
-
-    // this.dialog.open(DialogComponent, dialogConfig);
+        dialogConfig.data = {
+          offices: this.offices,
+          isInput: isInput,
+          isSelect: isSelect
+        }
 
     const dialogRef = this.dialog.open(DialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-        data => console.log("Dialog output:", data)
+        data => {
+          if (data) {
+            console.log(data);
+            isInput ? null :  data["map"]="office-map.png";
+            isInput ? this.createOffice(data) : isSelect ? this.deleteOffice(data.selectedData) : this.administrationService.createFloorReq(data).subscribe((user => {  }))
+          }
+        }
     );    
+  }
+
+  getOffices() {
+      this.locationService.offices$.subscribe(value => {
+        this.offices = value;
+      })
   }
 }
