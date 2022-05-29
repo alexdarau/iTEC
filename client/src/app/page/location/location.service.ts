@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { iOffice, iOfficeReq } from 'src/app/interfaces/offcie.interface';
 import { iFloor, iFloorReq } from 'src/app/interfaces/floor.interface';
+import { iWorkDesk } from 'src/app/interfaces/workDesk.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -41,12 +42,12 @@ export class LocationService extends ApiBase {
   }
 
   private getWorkdeskReq(name: string) {
-    return this.get(this.buildGetURL('workdesk', name));
+    return this.get(this.buildGetURLById('workdesk', name));
     
   }
 
   private createWorkdeskReq(data: any) {
-    return this.post(this.buildURL('workdesk'), data);
+    return this.post<iWorkDesk>(this.buildURL('workdesk'), data);
   }
 
   private bookWorkdeskReq(data: any) {

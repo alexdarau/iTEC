@@ -37,6 +37,10 @@ export abstract class ApiBase {
        return `${this.ROOT_URL}/${endpointKey}/?name=${resourceName}`;
     }
 
+    protected buildGetURLById (endpointKey: string, resourceName: string) {
+        return `${this.ROOT_URL}/${endpointKey}/?_id=${resourceName}`;
+     }
+
     protected buildGetWorkdeskURL (endpointKey: string, floorId: string, startDate: string, endDate: string) {
         return `${this.ROOT_URL}/${endpointKey}?id=${floorId}&startDate=${startDate}&endDate=${endDate}`;
     }

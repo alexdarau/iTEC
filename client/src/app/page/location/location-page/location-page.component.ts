@@ -72,11 +72,11 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
   changeClient(value: any) {
     console.log(value)
     this.imageURL = `../../../../assets/${value.map}`;
-    this.floorID = value._id
+    this.floorID = value._id;
+    this.getWorkdesk(this.floorID);
   }
 
-  getWorkdesk() {
-    let name = "ana"
+  getWorkdesk(name: any) {
     this.locationService.getWorkdesk(name)
   }
 
@@ -116,14 +116,14 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
           let workdesk = {
             x: this.coordX,
             y: this.coordY,
-            floorId: "62916454ff32ccb8c9ae4d95"
+            floorId: this.floorID,
           }
           if(data) {
             this.locationService.createWorkdesk(workdesk)
           }
         }
-
-        );    
+        
+        );   
 }
 
 

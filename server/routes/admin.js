@@ -25,13 +25,13 @@ server.use(express.json());
 
 server.post("/workdesk", auth,
     async (req, res) => {
-        const { x, y, id } = req.body;
-        const floorId = mongoose.Types.ObjectId(id);
+        const { x, y, floorId } = req.body;
+        const _floorId = mongoose.Types.ObjectId(floorId);
 
         const work = {
             x,
             y,
-            floorId
+            floorId: _floorId
         };
 
         await WorkDesk.create(
@@ -238,12 +238,11 @@ server.get("/floor", auth, async (req, res) => {
 });
 
 server.get("/workdesk", auth, async (req, res) => {
-    const { name } = req.query;
-    console.log("🚀 ~ file: admin.js ~ line 242 ~ server.get ~ name", name)
-    const floor = await Floor.findOne({ name });
+    const { _id } = req.query;
+    // console.log("🚀 ~ file: admin.js ~ line 242 ~ server.get ~ name", _id)
+    const floor = await Floor.findOne({ _id });
     if(floor){
     const workdesk = await WorkDesk.find({ floorId: floor._id })
-
     if (!workdesk) {
         res.status(404).json({
             message: "Workdesk not found",
