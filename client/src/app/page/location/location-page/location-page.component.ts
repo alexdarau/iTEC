@@ -15,6 +15,7 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
   public floors: iFloor[] = [];
   public officeGroups$: BehaviorSubject<any> = new BehaviorSubject([]);
   public isLoading: boolean = true;
+  public showDesk: boolean = false;
 
   public imageURL: string;
   constructor(private locationService: LocationService) { 
@@ -30,17 +31,13 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(()=>{
-      console.log(this.officeGroups$.value);
       this.isLoading = false;
-
     }, 1000)
   }
 
   inistializeSelector(){
-    console.log(this.offices);
     const populateData: any = []
     this.offices.forEach(office => {
-      console.log(office);
       let officeObj: any = {};
       this.locationService.getFloorReq(office.name).subscribe(value => {
         officeObj['name'] = office.name;
@@ -56,29 +53,37 @@ export class LocationPageComponent implements OnInit,  AfterViewInit {
     this.locationService.offices$.subscribe(value => {
       this.offices = value;
     })
-    // this.locationService.getOffice()
   }
 
   getFloor() {
-    // let name = "ana"
-    // this.locationService.getFloor(name);
     this.offices.forEach(office => {
       console.log(office.name)
       this.locationService.getFloorReq(office.name).subscribe((value) => {
         this.floors = value.floor;
-        console.log(value);
       })
     })
   }
 
   changeClient(value: any) {
-    console.log(value);
     this.imageURL = `../../../../assets/${value.map}`
   }
 
   getWorkdesk() {
     let name = "ana"
     this.locationService.getWorkdesk(name)
+  }
+
+  createMarker(e: any) {
+    console.log(e.target);
+    let rect = e.target.getBoundingClientRect();
+    let x = e.clientX - rect.left; //x position within the element.
+    let y = e.clientY - rect.top;  //y position within the element.
+
+    console.log(x,y);
+    this.showDesk = true;
+    const deskBtn = document.getElementById('desk');
+    console.log(deskBtn)
+    //e.target.getBoundingClientRect();
   }
 
   createWorkdesk() {

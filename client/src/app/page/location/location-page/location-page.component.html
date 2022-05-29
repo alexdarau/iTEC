@@ -21,7 +21,8 @@
           </mat-form-field>
 
           <div *ngIf="imageURL" class="image-div">
-              <img src="{{imageURL}}">
+              <img id="office-image" src="{{imageURL}}" (click)="createMarker($event)">
+              <mat-radio-button hidden="!showDesk" id="desk"></mat-radio-button>
           </div>
 
     </div>
