@@ -10,6 +10,11 @@ export abstract class ApiBase {
         'x-access-token': '' + localStorage.getItem('USER_TOKEN')
     });
 
+    private headersImage = new HttpHeaders({
+        'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+        'x-access-token': '' + localStorage.getItem('USER_TOKEN')
+    });
+
     constructor( protected http: HttpClient ) {
         this.ROOT_URL = 'http://localhost:3000';
         this.initEndpoints()
@@ -24,7 +29,7 @@ export abstract class ApiBase {
     }
 
     protected buildURL (endpointKey: string) {
-       let uri: string = this.endpoints[endpointKey];
+    let uri: string = this.endpoints[endpointKey];
        return `${this.ROOT_URL}/${uri}`;
     }
 
@@ -49,8 +54,8 @@ export abstract class ApiBase {
         return this.http.get<T>(url, {headers: this.headers});
     }
 
-    post<T>(url: string, payload: any, isLogin: boolean = false) {
-        return isLogin ? this.http.post<T>(url, payload) : this.http.post<T>(url, payload, { headers:  this.headers });
+    post<T>(url: string, payload: any, isLogin: boolean = false, isImage?: boolean) {
+        return isLogin ? this.http.post<T>(url, payload) : isImage ? this.http.post<T>(url, payload, { headers:  this.headersImage }) : this.http.post<T>(url, payload, { headers:  this.headers });
     }
 
     delete(url: string) {

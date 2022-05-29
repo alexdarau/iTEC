@@ -30,7 +30,6 @@ import { LocationDialogComponent } from './page/location/location-dialog/locatio
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
