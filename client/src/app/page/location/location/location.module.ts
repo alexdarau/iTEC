@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { LocationDialogComponent } from '../location-dialog/location-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Routes = [
   { path: '', component: LocationPageComponent }
@@ -30,7 +31,8 @@ const routes: Routes = [
     MatInputModule,
     MatButtonModule,
     MatRadioModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   exports: [RouterModule],

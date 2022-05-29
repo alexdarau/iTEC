@@ -2,8 +2,8 @@
     <ul class="nav-link--ul">
         <!-- Routes -->
         <li *ngFor="let i of availableRoutes" class="nav-link--li">
-            <mat-icon>{{i?.icon}}</mat-icon>
-            <a class="{{getSelectedClass(i)}}" routerLink="{{i.route}}">{{i.title}}</a>
+            <mat-icon class="nav-link--icon {{getSelectedClass(i)}}">{{i?.icon}}</mat-icon>
+            <a class=" nav-link--a {{getSelectedClass(i)}}" routerLink="{{i.route}}">{{i.title}}</a>
 
         </li>
     </ul>

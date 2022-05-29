@@ -2,7 +2,7 @@
 
 <mat-dialog-content [formGroup]="form">
     <mat-form-field appearance="fill" *ngIf="!hideSelect">
-        <mat-label>Choose office</mat-label>
+        <mat-label>Choose..</mat-label>
         <mat-select formControlName="selectedData">
           <mat-option *ngFor="let data of dataToSelect" [value]="data.name">
             {{data.name}}
