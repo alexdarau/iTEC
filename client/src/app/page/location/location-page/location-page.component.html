@@ -5,4 +5,22 @@
     <button mat-raised-button color="primary" (click)="createWorkdesk()">Create workdesk</button>
     <button mat-raised-button color="primary" (click)="bookWorkdesk()">Book workdesk</button>
     <button mat-raised-button color="primary" (click)="getWorkdeskByDate()">Get workdesk by DATE</button>
+    <div *ngIf="isLoading">
+
+    </div>
+    <div *ngIf="!isLoading">
+        <mat-form-field appearance="fill">
+            <mat-label>Choose Office  b </mat-label>
+            <mat-select>
+                <mat-optgroup *ngFor="let group of officeGroups$.getValue()" [label]="group.name">
+                    <mat-option *ngFor="let floor of group.floors" [value]="floor.value">
+                        {{floor.name}}
+                    </mat-option>
+                </mat-optgroup>
+              <!-- <mat-option *ngFor="let food of officeGroups$.getValue()" [value]="food.name">
+                {{food.name}}
+              </mat-option> -->
+            </mat-select>
+          </mat-form-field>
+    </div>
 </div>

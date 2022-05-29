@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { iFloor } from 'src/app/interfaces/floor.interface';
+import { iOffice } from 'src/app/interfaces/offcie.interface';
 import { LocationService } from '../location.service';
 
 @Component({
@@ -6,20 +9,65 @@ import { LocationService } from '../location.service';
   templateUrl: './location-page.component.html',
   styleUrls: ['./location-page.component.scss']
 })
-export class LocationPageComponent implements OnInit {
+export class LocationPageComponent implements OnInit,  AfterViewInit {
 
-  constructor(private locationService: LocationService) { }
-
-  ngOnInit(): void {
+  public offices: iOffice[] = [];
+  public floors: iFloor[] = [];
+  public officeGroups$: BehaviorSubject<any> = new BehaviorSubject([]);
+  public isLoading: boolean = true;
+  constructor(private locationService: LocationService) { 
+    this.locationService.getOffice();
   }
 
-  getOffice() {
-    this.locationService.getOffice()
+  ngOnInit(): void {
+    this.getOffice();
+    setTimeout(() => {
+      this.inistializeSelector();
+    }, 500)
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(()=>{
+      console.log(this.officeGroups$.value);
+      this.isLoading = false;
+
+    }, 500)
+  }
+
+  inistializeSelector(){
+    console.log(this.offices);
+    const populateData: any = []
+    this.offices.forEach(office => {
+      console.log(office);
+      let officeObj: any = {};
+      this.locationService.getFloorReq(office.name).subscribe(value => {
+        officeObj['name'] = office.name;
+        officeObj['floors'] = value.floor;
+        console.log(officeObj);
+        populateData.push(officeObj);
+      });
+        this.officeGroups$.next(populateData);
+    })
+  }
+
+  getOffice() {  
+    this.locationService.getOffice();  
+    this.locationService.offices$.subscribe(value => {
+      this.offices = value;
+    })
+    // this.locationService.getOffice()
   }
 
   getFloor() {
-    let name = "ana"
-    this.locationService.getFloor(name)
+    // let name = "ana"
+    // this.locationService.getFloor(name);
+    this.offices.forEach(office => {
+      console.log(office.name)
+      this.locationService.getFloorReq(office.name).subscribe((value) => {
+        this.floors = value.floor;
+        console.log(value);
+      })
+    })
   }
 
   getWorkdesk() {
